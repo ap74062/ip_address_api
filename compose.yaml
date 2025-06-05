@@ -1,0 +1,36 @@
+services:
+  mongodb:
+    image: "mongo"
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  pytest:
+    build: .
+    command: pytest app/
+    depends_on:
+      - redis
+      - mongodb
+
+  web:
+    build: .
+    command: fastapi run app/main.py --port 80 
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on: 
+      - redis
+      - mongodb
+
+    ports:
+      - "80:80"
+  
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+  
+volumes:
+  mongo-data:
