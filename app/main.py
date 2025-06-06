@@ -13,7 +13,7 @@ MONGODB_HOST = "mongodb"
 MONGODB_PORT = 27017
 MONGODB_DB = "data"
 MONGODB_COLLECTION = "data"
-API_ACCESS_KEY = "0f166172ea082c6e68d938fb770813d1"
+API_ACCESS_KEY = ""
 
 
 def db_connector():
